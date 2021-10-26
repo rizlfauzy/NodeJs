@@ -1,21 +1,10 @@
-// const {writeQuestions, saveQuestions} = require(`./contacts`)
-
-// async function startQuestions() {
-//   const nama = await writeQuestions(`Masukkan Nama Anda :`);
-//   const email = await writeQuestions(`Masukkan Email Anda :`);
-//   const noHp = await writeQuestions(`Masukkan No Hp Anda :`)
-
-//   saveQuestions(nama, email, noHp);
-// };
-
-// startQuestions()
-
 const yargs = require('yargs');
-const { saveQuestions } = require('./contacts');
+const { saveQuestions, listContact, detailContact, deleteContact } = require('./contacts');
 
 yargs.command({
   command: `add`,
   describe: `Menambahkan Contact Baru`,
+  //builder untuk menambahkan parameter
   builder: {
     nama: {
       describe: `Nama Lengkap`,
@@ -33,8 +22,48 @@ yargs.command({
       type: `string`
     }
   },
+  //handler berisi hal yang akan dijalankan
   handler(argv) {
     saveQuestions(argv.nama, argv.email, argv.noHp)
+  }
+}).demandCommand();
+
+// membuat perintah untuk menampilkan daftar
+yargs.command({
+  command: `list`,
+  describe: `Menampilkan nama dan no handphone contact`,
+  handler() {
+    listContact()
+  }
+})
+
+yargs.command({
+  command: `detail`,
+  describe: `Menampilkan sebuah detail dari contact berdasarkan nama`,
+  builder: {
+    nama: {
+      describe: `Nama Lengkap`,
+      demandOption: true,
+      type: `string`
+    }
+  },
+  handler(argv) {
+    detailContact(argv.nama)
+  }
+})
+
+yargs.command({
+  command: `delete`,
+  describe: `Menghapus sebuah contact berdasarkan nama`,
+  builder: {
+    nama: {
+      describe: `Nama Lengkap`,
+      demandOption: true,
+      type: `string`
+    }
+  },
+  handler(argv) {
+    deleteContact(argv.nama)
   }
 })
 

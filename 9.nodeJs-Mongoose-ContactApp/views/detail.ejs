@@ -1,0 +1,29 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Detail Contact</h2>
+      <% if (!contact) { %>
+      <div class="alert alert-danger fw-bold" role="alert">
+        Data not found <br>
+        <a href="/contact" class="alert-link fw-normal">&laquo; Back</a>
+      </div>
+      <% } else {%>
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">Contact Details</div>
+        <div class="card-body">
+          <div class="card-title"><%= contact.nama %></div>
+          <div class="card-subtitle mb-2 text-muted"><%= contact.noHp %></div>
+          <div class="card-text"><%= contact.email %></div>
+          <a href="/edit-contact/<%= contact._id %> " class="btn btn-info badge">Edit</a>
+          <form action="/contact?_method=DELETE" method="post" class="d-inline">
+            <input type="hidden" name="_id" value="<%= contact._id %>">
+            <button type="submit" class="btn btn-danger bagde"
+              onclick="return confirm('Are you sure ?')">Delete</button>
+          </form>
+          <a href="/contact" class="card-link d-block">&laquo; Back</a>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

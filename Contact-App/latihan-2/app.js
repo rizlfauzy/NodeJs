@@ -1,5 +1,5 @@
 const yargs = require('yargs');
-const { saveQuestions } = require('./contacts');
+const { saveQuestions} = require('./contacts');
 
 yargs.command({
   command: `add`,
@@ -24,6 +24,7 @@ yargs.command({
   handler(argv) {
     saveQuestions(argv.nama, argv.email, argv.noHp)
   }
-}).demandCommand();//untuk menandakan harus ada perintahnya saat di jalankan
+}).demandCommand();//untuk menandakan harus ada perintahnya saat di jalankan node app
+
 
 yargs.parse();

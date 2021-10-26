@@ -1,11 +1,5 @@
 const fs = require('fs');
-const readline = require('readline');
 const validator = require('validator');
-
-const rl = readline.createInterface({
-  input: process.stdin,//apa yang dilakukan di cmd
-  output: process.stdout, //apa yang kita kirim
-});
 
 // mengecek apakah file direktorinya ada atau tidak
 const dirPath = `./data`;
@@ -20,19 +14,15 @@ if (!fs.existsSync(dataPath)) {
   fs.writeFileSync(dataPath, `[]`, `utf-8`);  
 }
 
-//rl.question() isi pertanyaanya bisa kita ubah sndiri
-function writeQuestions(questions) {
-  return new Promise((resolve, reject) => {
-    rl.question(questions, question => {
-      resolve(question)
-    })
-  })
+function loadContact() {
+  const file = fs.readFileSync(`data/contacts.json`, `utf-8`);
+  const contacts = JSON.parse(file);//diubah jadi json karena awalnyya bntuk string
+  return contacts;
 }
 
 function saveQuestions(nama, email, noHp) {
   const contact = { nama, email, noHp };
-  const file = fs.readFileSync(`data/contacts.json`, `utf-8`);
-  const contacts = JSON.parse(file);//diubah jadi json karena awalnyya bntuk string
+  const contacts = loadContact();
 
   //cek duplikat
   const duplicate = contacts.find(contact => contact.nama === nama);
@@ -57,8 +47,46 @@ function saveQuestions(nama, email, noHp) {
   contacts.push(contact)
   fs.writeFileSync(`data/contacts.json`, JSON.stringify(contacts));//untuk write harus dari string
   console.log(`Terima Kasih sudah memasukkan data`);
-
-  // rl.close()
 }
 
-module.exports = {writeQuestions,saveQuestions}
+function listContact() {
+  const contacts = loadContact();
+  console.log(`Daftar Kontak : `);
+  contacts.forEach((contact, i) => {
+    console.log(`${i+1}. ${contact.nama} - ${contact.noHp}`);
+  });
+}
+
+function detailContact(nama) {
+  const contacts = loadContact();
+  const regex = new RegExp(nama, `i`);
+
+  const contact = contacts.find(contact => contact.nama.toLowerCase() === nama.toLowerCase())
+
+  if (!contact) {
+    console.log(`${nama} tidak ditemukan`);
+    return false;
+  }
+
+  console.log(contact.nama);
+  console.log(contact.noHp);
+  if (contact.email) {
+    console.log(contact.email);
+  }
+}
+
+function deleteContact(nama) {
+  const contacts = loadContact();
+  //menghasilkan array baru yang berisi data kecuali nama yang diketik
+  const newContacts = contacts.filter(contact => contact.nama.toLowerCase() !== nama.toLowerCase());
+  //jika nama tidak ada maka kasih perintah berikut
+  if (contacts.length === newContacts.length) {
+    console.log(`data contact dengan nama ${nama} tidak ditemukan`);
+    return false
+  }
+
+  fs.writeFileSync(`data/contacts.json`, JSON.stringify(newContacts));
+  console.log(`Contact dengan nama ${nama} sudah dihapus`);
+}
+
+module.exports = {saveQuestions, listContact, detailContact, deleteContact}

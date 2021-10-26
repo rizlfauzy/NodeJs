@@ -1,0 +1,14 @@
+<!-- beda "ejsout//==ejsexcapeout" dengan ejsesc //==ejsescapein adalah ejsescape out mengubah tag html, ejsescapein tidak -->
+  <h1>Ini Halaman <%= title %> </h1>
+  <h2>Halo <%= nama %>  </h2>
+  <h4>Daftar Mahasiswa</h4>
+  <% if (mahasiswa.length < 1) { %>
+    <p>Data Masih Kosong</p>
+  <% } else {%>
+    <% mahasiswa.forEach(mhs => { %>
+      <ul>
+        <li>Nama : <%= mhs.nama %> </li>
+        <li>Email : <%= mhs.email %> </li>
+      </ul>
+    <% }) %>
+  <% } %>

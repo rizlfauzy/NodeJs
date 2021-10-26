@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h2 class="mb-2 mt-2">Daftar Kontak</h2>
+    </div>
+  </div>
+  <div class="row mb-2 mt-2">
+    <div class="col-md-3">
+      <a href="/contact/add" class="btn btn-primary">Tambah Kontak</a>
+    </div>
+    <% if (msg.length > 0) { %>
+    <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+      <%= msg %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table text-center">
+        <thead>
+          <th width="10%">No</th>
+          <th width="30%">Nama</th>
+          <th width="30%">No HP</th>
+          <th width="30%">Aksi</th>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8" style="height: 40vh;overflow-y: auto;">
+      <table class="table text-center">
+        <tbody>
+          <% if (contacts.length < 1) { %>
+          <tr class="d-none">
+            <th width="10%">1</th>
+            <td width="30%">Rizal Fauzi</td>
+            <td width="30%">085156568650</td>
+            <td width="30%">
+              <a href="/contact" class="btn btn-success badge rounded-pill"><i class="bi bi-info-circle"></i>
+                Detail</a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <div class="alert alert-danger fw-bold" role="alert">
+                Data not found
+              </div>
+            </td>
+          </tr>
+          <% }else { %>
+            <% contacts.forEach((contact,i) => { %>
+              <tr>
+                <th width="10%"><%= i + 1 %></th>
+                <td width="30%"><%= contact.nama %></td>
+                <td width="30%"><%= contact.noHp %></td>
+                <td width="30%">
+                  <a href="/contact/<%= contact.nama %>" class="btn btn-success badge rounded-pill"><i
+                      class="bi bi-info-circle"></i>
+                    Detail</a>
+                </td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
