@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
-const session = require('');
+const session = require("express-session");
 const cookieParser = require('cookie-parser')
 const flash = require('connect-flash');
 const { loadContact, findContact, addContact, checkDuplicate } = require("./utils/contacts");

@@ -1,0 +1,22 @@
+<% let daftarCard = [1,2,3,4,5,6,7,8]; %>
+<center><h1 class="text-white">Chat Bareng</h1></center>
+<div class="card">
+  <div class="card-body">
+    <h5><span id="totalUserOnline"></span> Online</h5>
+    <div id="message-list" style="height:40vh;overflow-y: auto;">
+      
+    </div>
+    <div id="form-message" class="mt-1">
+      <div class="row">
+        <div class="col-8">
+          <input type="text" class="form-control" placeholder="" id="message">
+        </div>
+        <div class="col-4">
+          <button class="btn btn-primary" id="sendMessage">Kirim Pesan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/script.js"></script>

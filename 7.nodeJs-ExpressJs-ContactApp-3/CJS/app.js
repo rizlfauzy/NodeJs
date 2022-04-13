@@ -61,7 +61,7 @@ app.get("/contact", function (req, res) {
 
 //add item
 app.get("/contact/add", function (req, res) {
-  res.render("add_Contact", {
+  res.render("add_contact", {
     title: "Add Item",
     layout: "layouts/main-layouts",
   });
@@ -84,7 +84,7 @@ app.post(
   function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render("add_Contact", {
+      res.render("add_contact", {
         title: "Add Item",
         layout: "layouts/main-layouts",
         errors: errors.array(),
@@ -115,7 +115,7 @@ app.get("/contact/delete/:nama", function (req, res) {
 //edit item
 app.get("/contact/edit/:nama", function (req, res) {
   const contact = findContact(req.params.nama);
-  res.render("edit_Contact", {
+  res.render("edit_contact", {
     title: "Edit Item",
     layout: "layouts/main-layouts",
     contact,
@@ -139,7 +139,7 @@ app.post(
   function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render("edit_Contact", {
+      res.render("edit_contact", {
         title: "Edit Item",
         layout: "layouts/main-layouts",
         errors: errors.array(),

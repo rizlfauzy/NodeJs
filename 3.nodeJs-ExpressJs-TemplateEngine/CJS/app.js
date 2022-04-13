@@ -8,7 +8,7 @@ app.use(expressLayouts);
 app.set("view engine", "ejs");
 
 app.get("/", function (req, res) {
-  const mahasiswa = [express-ejs-layouts
+  const mahasiswa = [
     {
       nama: "Rizal Fauzi",
       email: "rizalfauzi774@gmail.com",
